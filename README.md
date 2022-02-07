@@ -2,6 +2,9 @@
 
 ![preview](./preview.gif)
 
+## A simple practice for vue. You can view demosite [here](https://imp2002.github.io/TodoList-Vue/).
+
+
 ## Project setup
 ```
 npm install
