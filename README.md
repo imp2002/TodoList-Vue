@@ -1,4 +1,6 @@
-# todolist
+# TodoList
+
+![preview](./preview.gif)
 
 ## Project setup
 ```
