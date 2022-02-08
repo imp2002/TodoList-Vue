@@ -24,7 +24,7 @@
     components: { AppHeader, AppList, AppFooter },
     data() {
       return {
-        todos: [{ id: '001', title: '写代码', done: true }]
+        todos: JSON.parse(localStorage.getItem('todos')) || []
       }
     },
     methods: {
@@ -53,6 +53,14 @@
         this.todos = this.todos.filter(todo => {
           return !todo.done
         })
+      }
+    },
+    watch: {
+      todos: {
+        deep: true,
+        handler(newValue) {
+          localStorage.setItem('todos', JSON.stringify(newValue))
+        }
       }
     }
   }
