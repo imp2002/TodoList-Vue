@@ -1,7 +1,7 @@
 <template>
   <div id="root">
-    <h1>TodoList</h1>
     <div class="todo-container">
+      <h1>TodoList</h1>
       <div class="todo-wrap">
         <AppHeader :addTodo="addTodo" />
         <AppList :todos="todos" :check="check" :deleteTodo="deleteTodo" />

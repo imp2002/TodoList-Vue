@@ -5,7 +5,9 @@
         type="checkbox"
         :checked="todo.done"
         @change="handleCheck(todo.id)" />
-      <span>{{ todo.title }}</span>
+      <span :class="todo.done ? 'title-finish' : 'title-normal'">
+        {{ todo.title }}
+      </span>
     </label>
     <button class="btn btn-danger" @click="handleDelete(todo.id)">删除</button>
   </li>
@@ -69,5 +71,14 @@
 
   li:hover button {
     display: block;
+  }
+
+  .title-normal {
+    color: black;
+  }
+
+  .title-finish {
+    color: gray;
+    text-decoration: line-through;
   }
 </style>
