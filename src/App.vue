@@ -4,7 +4,11 @@
       <h1>TodoList</h1>
       <div class="todo-wrap">
         <AppHeader :addTodo="addTodo" />
-        <AppList :todos="todos" :check="check" :deleteTodo="deleteTodo" />
+        <AppList
+          :todos="todos"
+          :check="check"
+          :deleteTodo="deleteTodo"
+          :updateTodo="updateTodo" />
         <AppFooter
           :todos="todos"
           :checkAll="checkAll"
@@ -41,6 +45,15 @@
       // 删除一个todo
       deleteTodo(id) {
         this.todos = this.todos.filter(todo => todo.id !== id)
+      },
+      // 更新todo
+      updateTodo(id, title) {
+        this.todos.forEach(todo => {
+          if (todo.id === id) {
+            todo.title = title
+            return
+          }
+        })
       },
       // 全选,取消全选
       checkAll(done) {
@@ -96,6 +109,13 @@
     color: #fff;
     background-color: #da4f49;
     border: 1px solid #bd362f;
+  }
+
+  .btn-edit {
+    color: #fff;
+    background-color: gray;
+    border: 1px solid rgb(89, 148, 170);
+    margin-right: 5px;
   }
 
   .btn-danger:hover {

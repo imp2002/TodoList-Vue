@@ -5,7 +5,8 @@
       :key="todoObj.id"
       :todo="todoObj"
       :check="check"
-      :deleteTodo="deleteTodo" />
+      :deleteTodo="deleteTodo"
+      :updateTodo="updateTodo" />
   </ul>
 </template>
 
@@ -17,7 +18,7 @@
     components: {
       AppItem
     },
-    props: ['todos', 'check', 'deleteTodo']
+    props: ['todos', 'check', 'deleteTodo', 'updateTodo']
   }
 </script>
 
