@@ -1,12 +1,6 @@
 <template>
   <ul class="todo-main">
-    <AppItem
-      v-for="todoObj in todos"
-      :key="todoObj.id"
-      :todo="todoObj"
-      :check="check"
-      :deleteTodo="deleteTodo"
-      :updateTodo="updateTodo" />
+    <AppItem v-for="todoObj in todos" :key="todoObj.id" :todo="todoObj" />
   </ul>
 </template>
 
@@ -18,7 +12,19 @@
     components: {
       AppItem
     },
-    props: ['todos', 'check', 'deleteTodo', 'updateTodo']
+    computed: {
+      todos() {
+        return this.$store.state.todos
+      }
+    },
+    watch: {
+      todos: {
+        deep: true,
+        handler(newValue) {
+          localStorage.setItem('todos', JSON.stringify(newValue))
+        }
+      }
+    }
   }
 </script>
 

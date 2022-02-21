@@ -3,16 +3,9 @@
     <div class="todo-container">
       <h1>TodoList</h1>
       <div class="todo-wrap">
-        <AppHeader :addTodo="addTodo" />
-        <AppList
-          :todos="todos"
-          :check="check"
-          :deleteTodo="deleteTodo"
-          :updateTodo="updateTodo" />
-        <AppFooter
-          :todos="todos"
-          :checkAll="checkAll"
-          :clearDoneTodo="clearDoneTodo" />
+        <AppHeader />
+        <AppList />
+        <AppFooter />
       </div>
     </div>
   </div>
@@ -25,57 +18,7 @@
 
   export default {
     name: 'App',
-    components: { AppHeader, AppList, AppFooter },
-    data() {
-      return {
-        todos: JSON.parse(localStorage.getItem('todos')) || []
-      }
-    },
-    methods: {
-      // 添加一个todo
-      addTodo(todoObj) {
-        this.todos.unshift(todoObj)
-      },
-      // 勾选,取消勾选
-      check(id) {
-        this.todos.forEach(todo => {
-          if (todo.id === id) todo.done = !todo.done
-        })
-      },
-      // 删除一个todo
-      deleteTodo(id) {
-        this.todos = this.todos.filter(todo => todo.id !== id)
-      },
-      // 更新todo
-      updateTodo(id, title) {
-        this.todos.forEach(todo => {
-          if (todo.id === id) {
-            todo.title = title
-            return
-          }
-        })
-      },
-      // 全选,取消全选
-      checkAll(done) {
-        this.todos.forEach(todo => {
-          todo.done = done
-        })
-      },
-      // 清除所有已经完成的todo
-      clearDoneTodo() {
-        this.todos = this.todos.filter(todo => {
-          return !todo.done
-        })
-      }
-    },
-    watch: {
-      todos: {
-        deep: true,
-        handler(newValue) {
-          localStorage.setItem('todos', JSON.stringify(newValue))
-        }
-      }
-    }
+    components: { AppHeader, AppList, AppFooter }
   }
 </script>
 

@@ -10,33 +10,28 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   export default {
     name: 'AppFooter',
     data() {
       return {}
     },
-    props: ['todos', 'clearDoneTodo', 'checkAll'],
+
     computed: {
-      // 总数
-      total() {
-        return this.todos.length
-      },
-      // 已完成数
-      doneTotal() {
-        return this.todos.filter(todo => todo.done).length
-      },
+      ...mapGetters(['total', 'doneTotal']),
       isAllDone: {
         get() {
           return this.total === this.doneTotal
         },
         set(value) {
-          this.checkAll(value)
+          this.$store.commit('checkAll', value)
         }
       }
     },
     methods: {
       clearChecked() {
-        this.clearDoneTodo()
+        this.$store.commit('clearChecked')
       }
     }
   }

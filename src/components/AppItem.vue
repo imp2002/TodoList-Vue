@@ -1,19 +1,16 @@
 <template>
   <li>
     <label>
-      <input
-        type="checkbox"
-        :checked="todo.done"
-        @change="handleCheck(todo.id)" />
+      <input type="checkbox" :checked="todo.done" @change="handleCheck(todo)" />
       <span
-        v-show="!todo.edit"
+        v-show="!todo.editing"
         :class="todo.done ? 'title-finish' : 'title-normal'">
         {{ todo.title }}
       </span>
       <input
         class="todo-edit"
         type="text"
-        v-show="todo.edit"
+        v-show="todo.editing"
         :value="todo.title"
         ref="inputRef"
         @blur="handleBlur(todo, $event)"
@@ -27,21 +24,19 @@
 <script>
   export default {
     name: 'AppItem',
-    props: ['todo', 'check', 'deleteTodo', 'updateTodo'],
+    props: ['todo'],
     methods: {
       // 勾选，取消勾选
-      handleCheck(id) {
-        this.check(id)
-      },
-      handleDelete(id) {
-        this.deleteTodo(id)
+      handleCheck(todo) {
+        todo.done = !todo.done
+        this.$store.commit('updateTodo', todo)
       },
       // 点击编辑时
       handleEdit(todo) {
-        if (Object.prototype.hasOwnProperty.call(todo, 'edit')) {
-          todo.edit = true
+        if (Object.prototype.hasOwnProperty.call(todo, 'editing')) {
+          todo.editing = true
         } else {
-          this.$set(todo, 'edit', true)
+          this.$set(todo, 'editing', true)
         }
         this.$nextTick(function () {
           this.$refs.inputRef.focus()
@@ -49,8 +44,13 @@
       },
       // 失去焦点时, 执行真正的修改操作
       handleBlur(todo, e) {
-        todo.edit = false
-        this.updateTodo(todo.id, e.target.value)
+        todo.editing = false
+        if (!e.target.value.trim()) return alert('输入不能为空！')
+        todo.title = e.target.value
+        this.$store.commit('updateTodo', todo)
+      },
+      handleDelete(id) {
+        this.$store.commit('deleteTodo', id)
       }
     }
   }
